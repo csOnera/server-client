@@ -18,15 +18,22 @@ var ref;
 
 router.route("/check/:serialId")
 .get((req, res) => {
-    res.send("your serial input: " + req.params.serialId);
+    // res.send("your serial input: " + req.params.serialId);
     executeCrudOperation(req.params.serialId)
     .then((doc) => {
-        // res.send(JSON.stringify(doc));
-        console.log(doc);
-        ref = doc[0]['ref']
-        console.log(ref)
-
-    })
+        console.log(doc)
+        res.send(doc)
+        // if (doc.length == 0) {
+        //     res.send("Serial not found!")
+        //     console.log("Serial not found!")
+        //     console.log(doc.length)
+        // } else {
+        //     res.send(doc);
+        //     // console.log(typeof(doc));
+        //     ref = doc[0]['ref']
+        //     console.log(ref)
+        // };
+            })
     // doc = JSON.stringify(doc)
     
     // res.send(doc)

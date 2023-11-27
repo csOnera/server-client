@@ -61,9 +61,9 @@ export async function createRefDocument(collection) {
 }
 export async function findRefBySerial(collection, serial) {
     return collection.find(
-    //     {
-    //     serial: serial
-    // }
+        {
+        serial: {$all: serial}
+    }
     ).toArray();
 }
 

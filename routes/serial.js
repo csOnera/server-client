@@ -20,6 +20,7 @@ router.route("/check/:serialId")
 .get((req, res) => {
     // res.send("your serial input: " + req.params.serialId);
     executeCrudOperation(req.params.serialId)
+    .then(console.log("loading..."))
     .then((doc) => {
         console.log(doc)
         res.send(doc)

@@ -3,6 +3,7 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import serial from './routes/serial.js';
+import cors from "cors";
 
 // import executeCrudOperation from './crudBackserver.js';
 
@@ -17,7 +18,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // await executeCrudOperation();
-
+app.use(cors());
 // app.use(express.json());
 app.use("/serial", serial);
 

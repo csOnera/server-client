@@ -23,17 +23,17 @@ router.route("/check/:serialId")
     .then(console.log("loading..."))
     .then((doc) => {
         console.log(doc)
-        res.send(doc)
-        // if (doc.length == 0) {
-        //     res.send("Serial not found!")
-        //     console.log("Serial not found!")
-        //     console.log(doc.length)
-        // } else {
-        //     res.send(doc);
-        //     // console.log(typeof(doc));
-        //     ref = doc[0]['ref']
-        //     console.log(ref)
-        // };
+        // res.send(doc)
+        if (doc.length == 0) {
+            res.send("Serial not found!")
+            console.log("Serial not found!")
+            console.log(doc.length)
+        } else {
+            res.send(doc);
+            // console.log(typeof(doc));
+            ref = doc[0]['ref']
+            console.log(ref)
+        };
             })
     // doc = JSON.stringify(doc)
     

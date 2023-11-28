@@ -16,4 +16,4 @@ function finds(serial, obj) {
     return false;
 }
 
-console.log(finds("22", obj['serial']))
+console.log(Object.entries([{ name: 'John', age: 30, city: 'New York' }]))

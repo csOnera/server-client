@@ -19,7 +19,15 @@ var ref;
 router.route("/check/:serialId")
 .get((req, res) => {
     // res.send("your serial input: " + req.params.serialId);
-    executeCrudOperation(req.params.serialId)
+    let refL = req.params.serialId.split(",")
+    let refLength = refL.length
+    console.log(refL)
+    if (refL.length == 1) {
+        refL = req.params.serialId
+        refLength = 1
+    }
+
+    executeCrudOperation("checkRefBySerial",ref,refL, refLength)
     .then(console.log("loading..."))
     .then((doc) => {
         console.log(doc)
@@ -31,7 +39,7 @@ router.route("/check/:serialId")
         } else {
             res.send(doc);
             // console.log(typeof(doc));
-            ref = doc[0]['ref']
+            ref = doc
             console.log(ref)
         };
             })

@@ -84,7 +84,7 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
 
         switch (action) {
             case "add":
-
+                return "data appended";
             case "drop":
 
             case "checkSerialByRef":
@@ -124,7 +124,7 @@ export async function findRefBySerial(collection, serial) {
 export async function updateSerialByRef(collection, ref, serialA) {
     await collection.updateMany(
         { ref },
-        [{ $set: { serial: { $concatArrays: ["$serial", serialA]}}}]
+        { $push: { serial: { $each : serialA}}}
     );
 }
 

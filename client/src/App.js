@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Axios from "axios";
+import UIPage from "./UI";
 
 function App() {
 
@@ -36,7 +37,9 @@ function App() {
   }, []);
 
   return (
+
     <div className="App">
+      <UIPage/>
       {loading && <p>Loading...</p>}
       {!loading && <p>{data}</p>}
     </div>

@@ -16,18 +16,33 @@ router.route("/check")
 
 var ref;
 
+router.route("/add/:ref/:serialId")
+.get((req, res) => {
+    // console.log(req.params.ref, "hiiiii+", req.params.serialId)
+    let ref = req.params.ref
+    let serialL = req.params.serialId.split(",")
+    let serialLength = serialL.length
+    console.log(serialL)
+    executeCrudOperation("add", ref, serialL, serialLength)
+    .then(console.log("loading..."))
+    .then((doc) => {
+        console.log(doc);
+        res.send(doc);
+    })
+})
+
 router.route("/check/:serialId")
 .get((req, res) => {
     // res.send("your serial input: " + req.params.serialId);
-    let refL = req.params.serialId.split(",")
-    let refLength = refL.length
-    console.log(refL)
-    if (refL.length == 1) {
-        refL = req.params.serialId
-        refLength = 1
+    let serialL = req.params.serialId.split(",")
+    let serialLength = serialL.length
+    console.log(serialL)
+    if (serialL.length == 1) {
+        serialL = req.params.serialId
+        serialLength = 1
     }
 
-    executeCrudOperation("checkRefBySerial",ref,refL, refLength)
+    executeCrudOperation("checkRefBySerial",ref,serialL, serialLength)
     .then(console.log("loading..."))
     .then((doc) => {
         console.log(doc)

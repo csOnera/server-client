@@ -36,7 +36,7 @@ router.route("/check/:serialId")
     // res.send("your serial input: " + req.params.serialId);
     let serialL = req.params.serialId.split(",")
     let serialLength = serialL.length
-    console.log(serialL)
+    // console.log(serialL)
     if (serialL.length == 1) {
         serialL = req.params.serialId
         serialLength = 1
@@ -63,6 +63,26 @@ router.route("/check/:serialId")
     // res.send(doc)
 });
 
+
+router.route("/checkAllSerial/:ref")
+.get((req,res) => {
+    let ref = req.params.ref
+    executeCrudOperation("checkSerialByRef", ref)
+    .then(console.log("loading..."))
+    .then((doc) => {
+        console.log(doc);
+        if (doc.length == 0) {
+            res.send("ref not found!")
+            console.log("ref not found!")
+            console.log(doc.length)
+        } else {
+            res.send(doc);
+            // console.log(typeof(doc));
+            ref = doc
+            console.log(ref)
+        };
+    })
+})
 
 
 

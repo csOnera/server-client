@@ -47,11 +47,12 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
                 } else {
                     await updateSerialByRef(collection, ref, serial)
                 };
-
+                break;
             case "drop":
-
+                break;
             case "checkSerialByRef":
                 var receivedSerials = await checkExistenceOfRef(collection, ref);
+                break;
             case "checkRefBySerial":
                 var refList = []
                 
@@ -59,15 +60,18 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
                     console.log("searching serialno: " + serial[i], typeof(serial[i]))
                     let receivedRef = await findRefBySerial(collection, serial[i]);
                     console.log(receivedRef[0]);
-                    if (receivedRef[0].hasOwnProperty('ref')) {
-                        refList.push(receivedRef[0]['ref']);
-                    } else {
-                        console.log(serial[i] + ": ref not found")
-                        refList.push(null)
+                    try {
+                        if (receivedRef.length != 0) {
+                            refList.push(receivedRef[0]['ref']);
+                        } else {
+                            console.log(serial[i] + ": ref not found")
+                            refList.push("")
+                        }
+                    } finally {
+                        
                     }
-                    
-                    
                 }
+                break;
         };
         // doc = await findRefBySerial(collection, serial);
         // console.log(doc)
@@ -84,11 +88,11 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
 
         switch (action) {
             case "add":
-                return "data appended";
+                return ["data appended"];
             case "drop":
-
+                break;
             case "checkSerialByRef":
-                return receivedSerials;
+                return receivedSerials[0]['serial'];
             case "checkRefBySerial":
                 console.log("refList: " + refList);
                 return refList;

@@ -1,5 +1,4 @@
 import {MongoClient} from 'mongodb';
-// import { parseFlagList } from 'mysql/lib/ConnectionConfig';
 
 
 export async function connectToCluster(uri) {
@@ -25,16 +24,13 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
     let doc;
 
     if (num == 1) {
-        serial = [serial]
+        serial = [serial];
     };
 
     try {
         mongoClient = await connectToCluster(uri);
         const db = mongoClient.db('CS_Data');
-        const collection = db.collection('ref_serial')
-
-        // console.log("CREATE ref_serial");
-        // await createRefDocument(collection);
+        const collection = db.collection('ref_serial');
 
 
         // here a switch for different actions by request
@@ -73,16 +69,8 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
                 }
                 break;
         };
-        // doc = await findRefBySerial(collection, serial);
-        // console.log(doc)
-        // console.log(doc[0].ref)
-        
 
-        // console.log('UPDATE Serial')
-        // await updateSerialByRef(collection, 'H82365141', ["hellonewnew"])
-        // console.log(await findRefBySerial(collection, "1UAX7S0UN"))
-        // console.log('DELETE Ref')
-        // await deleteDocumentByRef(collection, 'H82365141');
+        
     } finally {
         await mongoClient.close();
 
@@ -101,11 +89,7 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
 }
 
 export async function createRefDocument(collection, ref, serial) {
-    // const refDocument = {
-    //     ref: "H82365141",
-    //     serial: ["1UAX7S0UN", "4XXS8XX2P", "NAZF3JBXS"],
-    // };
-    
+       
     const refDocument = {
         ref: ref,
         serial: serial,
@@ -122,7 +106,7 @@ export async function findRefBySerial(collection, serial) {
     return collection.find(
     {serial: serial}
     ).toArray();
-    return answer
+    return answer;
 }
 
 export async function updateSerialByRef(collection, ref, serialA) {

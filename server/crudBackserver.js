@@ -24,9 +24,7 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
     let mongoClient;
     let doc;
 
-    if (num == 1) {
-        serial = [serial]
-    };
+    console.log(serial)
 
     try {
         mongoClient = await connectToCluster(uri);
@@ -36,12 +34,13 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
         // console.log("CREATE ref_serial");
         // await createRefDocument(collection);
 
-
+        let check;
         // here a switch for different actions by request
         switch (action) {
+            
             case "add":
                 // check if have original first
-                let check = await checkExistenceOfRef(collection, ref) 
+                check = await checkExistenceOfRef(collection, ref) 
                 if (check.length == 0) {
                     await createRefDocument(collection, ref, serial)
                 } else {
@@ -49,6 +48,7 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
                 };
                 break;
             case "drop":
+                check = await deleteSerialsWRef(collection, ref, serial)
                 break;
             case "checkSerialByRef":
                 var receivedSerials = await checkExistenceOfRef(collection, ref);
@@ -73,16 +73,7 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
                 }
                 break;
         };
-        // doc = await findRefBySerial(collection, serial);
-        // console.log(doc)
-        // console.log(doc[0].ref)
-        
 
-        // console.log('UPDATE Serial')
-        // await updateSerialByRef(collection, 'H82365141', ["hellonewnew"])
-        // console.log(await findRefBySerial(collection, "1UAX7S0UN"))
-        // console.log('DELETE Ref')
-        // await deleteDocumentByRef(collection, 'H82365141');
     } finally {
         await mongoClient.close();
 
@@ -90,7 +81,8 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
             case "add":
                 return ["data appended"];
             case "drop":
-                break;
+                // console.log(check);
+                return ["data deleted"];
             case "checkSerialByRef":
                 return receivedSerials[0]['serial'];
             case "checkRefBySerial":
@@ -122,16 +114,18 @@ export async function findRefBySerial(collection, serial) {
     return collection.find(
     {serial: serial}
     ).toArray();
-    return answer
 }
 
 export async function updateSerialByRef(collection, ref, serialA) {
     await collection.updateMany(
         { ref },
-        { $push: { serial: { $each : serialA}}}
+        { $push: { serial: { $each: serialA}}}
     );
 }
 
-export async function deleteDocumentByRef(collection, ref) {
-    await collection.deleteMany({ref});
+export async function deleteSerialsWRef(collection, ref, serialA) {
+    await collection.updateMany(
+        { },
+        { $pull: {serial: { $in: serialA}}}
+    );
 }

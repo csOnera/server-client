@@ -13,7 +13,7 @@ router.use(function (req, res, next) {
 
 router.route("/check")
 .get((req, res) => {
-    res.send("enter the serialid after check")
+    res.send("enter the detailed info")
 });
 
 var ref;
@@ -28,6 +28,20 @@ router.route("/add/:ref/:serialId")
     executeCrudOperation("add", ref, serialL, serialLength)
     .then(console.log("loading..."))
     .then((doc) => {
+        console.log(doc);
+        res.send(doc);
+    })
+})
+
+router.route("/drop/:ref/:serialId")
+.get((req, res) => {
+    let ref = req.params.ref
+    let serialL = req.params.serialId.split(",")
+    let serialLength = serialL.length
+    console.log(serialL)
+    executeCrudOperation("drop", ref, serialL, serialLength)
+    .then(console.log("loading..."))
+    .then((doc)=> {
         console.log(doc);
         res.send(doc);
     })

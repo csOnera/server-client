@@ -17,6 +17,7 @@ function UIPage() {
     
     async function getData(getWebsite) {
         try {
+            setLoading(true);
         const response = await Axios.get(
             getWebsite
         );
@@ -79,6 +80,8 @@ function UIPage() {
                 getData(`http://localhost:8000/serial/checkAllSerial/${inputRef}`)
                 break;
             case "export":
+                console.log("getting data...")
+                getData(`http://localhost:8000/serial/drop/${inputRef}/${inputSerial}`)
                 break;
         };
     };
@@ -106,8 +109,8 @@ function UIPage() {
                 console.log("checkSerial")
                 break;
             case "export":
-                setRefT(false);
-                setseriaLT(false);
+                setRefT(true);
+                setseriaLT(true);
                 console.log("at export")
                 break;
         };

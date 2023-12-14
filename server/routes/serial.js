@@ -8,8 +8,6 @@ router.use(function (req, res, next) {
     next();
 })
 
-// A COMMENT TO TRY GIT STASH
-
 
 router.route("/check")
 .get((req, res) => {
@@ -20,7 +18,6 @@ var ref;
 
 router.route("/add/:ref/:serialId")
 .get((req, res) => {
-    // console.log(req.params.ref, "hiiiii+", req.params.serialId)
     let ref = req.params.ref
     let serialL = req.params.serialId.split(",")
     let serialLength = serialL.length

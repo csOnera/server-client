@@ -32,8 +32,6 @@ export async function executeCrudOperation(action, ref, serial, num = 1) {
         const db = mongoClient.db('CS_Data');
         const collection = db.collection('ref_serial');
 
-        // console.log("CREATE ref_serial");
-        // await createRefDocument(collection);
 
         let check;
         // here a switch for different actions by request

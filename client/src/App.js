@@ -4,8 +4,6 @@ import UIPage from "./UI";
 
 function App() {
 
-  
-
   return (
 
     <div className="App">

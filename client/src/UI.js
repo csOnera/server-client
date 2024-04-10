@@ -3,6 +3,7 @@ import Axios from "axios";
 // import getData from './App.js'
 
 function UIPage() {
+    const backendWebsite = 'https://server-client-7rpa.onrender.com'
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [selectedOption, setSelectedOption] = useState('checkExistence');
@@ -69,19 +70,19 @@ function UIPage() {
         switch (selectedOption) {
             case "add":
                 console.log("getting data...")
-                getData(`http://localhost:8000/serial/add/${inputRef}/${inputSerial}`)
+                getData(`${backendWebsite}/serial/add/${inputRef}/${inputSerial}`)
                 break;
             case "checkExistence":
                 console.log("getting data...")
-                getData(`http://localhost:8000/serial/check/${inputSerial}`)
+                getData(`${backendWebsite}/serial/check/${inputSerial}`)
                 break;
             case "checkSerials":
                 console.log("getting data...")
-                getData(`http://localhost:8000/serial/checkAllSerial/${inputRef}`)
+                getData(`${backendWebsite}/serial/checkAllSerial/${inputRef}`)
                 break;
             case "export":
                 console.log("getting data...")
-                getData(`http://localhost:8000/serial/drop/${inputRef}/${inputSerial}`)
+                getData(`${backendWebsite}/serial/drop/${inputRef}/${inputSerial}`)
                 break;
         };
     };
